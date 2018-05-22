@@ -142,8 +142,7 @@ def main():
     ### Fetch the data from the API ###
 
     api_manager = ApiManager()
-    api_manager.categories()
-    categories = api_manager.result
+    categories = api_manager.categories()
 
     for category in categories:
         if category['products'] > MIN_PRODUCTS_PER_CATEGORY:
@@ -156,8 +155,7 @@ def main():
             cnx.commit()
 
             ### Products ###
-            api_manager.category_products(category['id'])
-            products = api_manager.result
+            products = api_manager.category_products(category['id'])
             for product in products:
                 try:
                     print(product['product_name'])
@@ -171,7 +169,6 @@ def main():
                 print("Product added ")
                 cnx.commit()
 
-                print(category_index, product_index)
                 ### Mutual table ###
                 cursor.execute("INSERT INTO `categories_products` (category_id, product_id) \
                 VALUES (%s, %s)", (category_index, product_index))
